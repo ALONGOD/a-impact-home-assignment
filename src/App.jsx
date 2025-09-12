@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import ReactMarkdown from 'react-markdown'
 import './App.css'
 
 const defaultBusiness = { areaSqm: 80, seats: 40, features: [] }
@@ -7,6 +8,7 @@ function App() {
   const [business, setBusiness] = useState(defaultBusiness)
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState(null)
+  const [tab, setTab] = useState('report')
   const [error, setError] = useState('')
 
   const toggleFeature = (f) => {
@@ -137,8 +139,49 @@ function App() {
         </button>
       </div>
 
-      {error && <div className="error">{error}</div>}
-      {result && <div className="result">{JSON.stringify(result, null, 2)}</div>}
+      {error && (
+        <div className="error-message">
+          <div className="error-icon">⚠️</div>
+          <div>
+            <strong>Error:</strong> {error}
+          </div>
+        </div>
+      )}
+
+      {result && (
+        <div style={{marginTop:16}}>
+          <div className="tabs">
+            <button className={`tab ${tab==='report'?'active':''}`} onClick={()=>setTab('report')}>AI Report</button>
+            <button className={`tab ${tab==='matches'?'active':''}`} onClick={()=>setTab('matches')}>Requirements</button>
+          </div>
+          <div className="panel">
+            {tab === 'report' ? (
+              <div className="report">
+                <ReactMarkdown>{result.report || ''}</ReactMarkdown>
+              </div>
+            ) : (
+              <div className="matches">
+                <div className="muted">Requirements found for your profile</div>
+                <ul>
+                  {result.matched.map((r)=> (
+                    <li key={r.id} className="match-item">
+                      <div style={{fontWeight:600}}>{r.category} — {r.title}</div>
+                      <div className="muted" style={{marginTop:4}}>{r.description}</div>
+                      {r.actions?.length ? (
+                        <div style={{marginTop:8}}>
+                          {r.actions.map((a,i)=> (
+                            <div key={i} style={{marginTop:4}}>• {a}</div>
+                          ))}
+                        </div>
+                      ) : null}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
