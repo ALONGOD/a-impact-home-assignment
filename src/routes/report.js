@@ -49,15 +49,19 @@ TONE: Professional yet friendly, supportive, and encouraging. Make the business 
     let text = '';
     try {
       const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-      const response = await client.chat.completions.create({
+      const response = await client.responses.create({
         model: 'gpt-4o-mini',
         temperature: 0.9,
-        messages: [
+        input: [
           { role: 'system', content: system },
           { role: 'user', content: user }
         ]
       });
-      text = response.choices[0].message.content;
+      // Prefer the primary text output
+      text = response.output_text || '';
+      if (!text && response.choices?.[0]?.message?.content) {
+        text = response.choices[0].message.content;
+      }
     } catch (llmError) {
       const msg = llmError?.message || 'AI error';
       text = `שגיאה בהפקת דוח AI: ${msg}`;
