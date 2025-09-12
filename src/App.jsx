@@ -52,98 +52,173 @@ function App() {
 
   return (
     <div className="container">
-      <h1>Restaurant Licensing Checker</h1>
-      
-      <div className="form-section">
-        <h2>Business Details</h2>
-        
-        <div className="form-group">
-          <label>
-            Area (sqm):
-            <input 
-              type="number" 
-              value={business.areaSqm}
-              onChange={(e)=>setBusiness({...business, areaSqm: Number(e.target.value)})}
-            />
-          </label>
+      {/* Hero Section */}
+      <div className="hero">
+        <div className="hero-content">
+          <h1>בדיקת דרישות רישוי למסעדה</h1>
+          <p className="hero-description">
+            כלי חכם לבדיקת דרישות הרישוי והתאמה לתקנות עבור עסקי מזון. 
+            פשוט הזינו את פרטי העסק שלכם וקבלו דוח מפורט עם כל הדרישות הרלוונטיות.
+          </p>
+          <div className="hero-features">
+            <div className="feature-item">
+              <span className="feature-icon">🏢</span>
+              <span>בדיקת דרישות משטרה</span>
+            </div>
+            <div className="feature-item">
+              <span className="feature-icon">🏥</span>
+              <span>תקנות משרד הבריאות</span>
+            </div>
+            <div className="feature-item">
+              <span className="feature-icon">🚒</span>
+              <span>דרישות כבאות והצלה</span>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <div className="form-group">
-          <label>
-            Seats:
-            <input 
-              type="number" 
-              value={business.seats}
-              onChange={(e)=>setBusiness({...business, seats: Number(e.target.value)})}
-            />
-          </label>
-        </div>
-
-        <div className="form-group">
-          <label>Features:</label>
-          
-          <div className="feature-section">
-            <div className="feature-category">
-              <h4>Alcohol Service</h4>
-              <div className="radio-group">
-                <label>
-                  <input 
-                    type="radio" 
-                    name="alcohol" 
-                    checked={business.features.includes('servesAlcohol')} 
-                    onChange={()=>toggleFeature('servesAlcohol')} 
-                  />
-                  Serves Alcohol
-                </label>
-                <label>
-                  <input 
-                    type="radio" 
-                    name="alcohol" 
-                    checked={business.features.includes('noAlcohol')} 
-                    onChange={()=>toggleFeature('noAlcohol')} 
-                  />
-                  No Alcohol
-                </label>
+      {/* Info Section */}
+      <div className="info-section">
+        <div className="info-card">
+          <h3>איך זה עובד?</h3>
+          <div className="info-steps">
+            <div className="step">
+              <div className="step-number">1</div>
+              <div className="step-content">
+                <h4>הזינו פרטי העסק</h4>
+                <p>גודל, מספר מקומות ישיבה ומאפיינים נוספים</p>
               </div>
             </div>
-
-            <div className="feature-category">
-              <h4>Additional Services</h4>
-              <div className="checkbox-group">
-                <label>
-                  <input 
-                    type="checkbox" 
-                    checked={business.features.includes('deliveries')} 
-                    onChange={()=>toggleFeature('deliveries')} 
-                  />
-                  Deliveries
-                </label>
-                <label>
-                  <input 
-                    type="checkbox" 
-                    checked={business.features.includes('usesGas')} 
-                    onChange={()=>toggleFeature('usesGas')} 
-                  />
-                  Uses Gas Cooking
-                </label>
+            <div className="step">
+              <div className="step-number">2</div>
+              <div className="step-content">
+                <h4>קבלו דוח מותאם</h4>
+                <p>רשימה מפורטת של כל הדרישות הרלוונטיות</p>
+              </div>
+            </div>
+            <div className="step">
+              <div className="step-number">3</div>
+              <div className="step-content">
+                <h4>פעלו לפי ההנחיות</h4>
+                <p>צעדים ברורים לביצוע הדרישות</p>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <button 
-          onClick={submit} 
-          disabled={loading || business.areaSqm <= 0 || business.seats <= 0}
-        >
-          {loading ? 'Loading...' : 'Generate Report'}
-        </button>
+      {/* Form Section */}
+      <div className="form-section">
+        <h2>פרטי העסק</h2>
+        <p className="form-description">הזינו את הפרטים הבסיסיים של העסק כדי לקבל דוח מותאם אישית</p>
+        
+        <div className="card form-card">
+          <div className="form-group">
+            <label className="form-label">
+              <span className="label-text">גודל העסק (מ"ר)</span>
+              <input 
+                type="number" 
+                value={business.areaSqm}
+                onChange={(e)=>setBusiness({...business, areaSqm: Number(e.target.value)})}
+                className="form-input"
+                placeholder="לדוגמה: 80"
+                min="1"
+              />
+            </label>
+            <div className="input-help">השטח הכולל של העסק במטר רבוע</div>
+          </div>
+
+          <div className="form-group">
+            <label className="form-label">
+              <span className="label-text">מספר מקומות ישיבה</span>
+              <input 
+                type="number" 
+                value={business.seats}
+                onChange={(e)=>setBusiness({...business, seats: Number(e.target.value)})}
+                className="form-input"
+                placeholder="לדוגמה: 40"
+                min="1"
+              />
+            </label>
+            <div className="input-help">מספר המקומות הזמינים ללקוחות</div>
+          </div>
+
+          <div className="form-group">
+            <div className="form-label">
+              <span className="label-text">מאפיינים נוספים</span>
+            </div>
+            
+            <div className="feature-section">
+              <div className="feature-category">
+                <h4>הגשת אלכוהול</h4>
+                <div className="radio-group">
+                  <label className="radio-label">
+                    <input 
+                      type="radio" 
+                      name="alcohol" 
+                      checked={business.features.includes('servesAlcohol')} 
+                      onChange={()=>toggleFeature('servesAlcohol')} 
+                    />
+                    <span className="radio-text">מגיש אלכוהול</span>
+                  </label>
+                  <label className="radio-label">
+                    <input 
+                      type="radio" 
+                      name="alcohol" 
+                      checked={business.features.includes('noAlcohol')} 
+                      onChange={()=>toggleFeature('noAlcohol')} 
+                    />
+                    <span className="radio-text">ללא אלכוהול</span>
+                  </label>
+                </div>
+              </div>
+
+              <div className="feature-category">
+                <h4>שירותים נוספים</h4>
+                <div className="checkbox-group">
+                  <label className="checkbox-label">
+                    <input 
+                      type="checkbox" 
+                      checked={business.features.includes('deliveries')} 
+                      onChange={()=>toggleFeature('deliveries')} 
+                    />
+                    <span className="checkbox-text">משלוחים</span>
+                  </label>
+                  <label className="checkbox-label">
+                    <input 
+                      type="checkbox" 
+                      checked={business.features.includes('usesGas')} 
+                      onChange={()=>toggleFeature('usesGas')} 
+                    />
+                    <span className="checkbox-text">שימוש בגז בישול</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button 
+            onClick={submit} 
+            disabled={loading || business.areaSqm <= 0 || business.seats <= 0}
+            className="submit-button"
+          >
+            {loading ? (
+              <>
+                <span className="loading-spinner"></span>
+                מחשב דרישות...
+              </>
+            ) : (
+              'צור דוח דרישות'
+            )}
+          </button>
+        </div>
       </div>
 
       {error && (
         <div className="error-message">
           <div className="error-icon">⚠️</div>
           <div>
-            <strong>Error:</strong> {error}
+            <strong>שגיאה:</strong> {error}
           </div>
         </div>
       )}
@@ -151,8 +226,8 @@ function App() {
       {result && (
         <div style={{marginTop:16}}>
           <div className="tabs">
-            <button className={`tab ${tab==='report'?'active':''}`} onClick={()=>setTab('report')}>AI Report</button>
-            <button className={`tab ${tab==='matches'?'active':''}`} onClick={()=>setTab('matches')}>Requirements</button>
+            <button className={`tab ${tab==='report'?'active':''}`} onClick={()=>setTab('report')}>דוח AI</button>
+            <button className={`tab ${tab==='matches'?'active':''}`} onClick={()=>setTab('matches')}>דרישות</button>
           </div>
           <div className="panel">
             {tab === 'report' ? (
@@ -161,7 +236,7 @@ function App() {
               </div>
             ) : (
               <div className="matches">
-                <div className="muted">Requirements found for your profile</div>
+                <div className="muted">דרישות שנמצאו עבור הפרופיל שלך</div>
                 <ul>
                   {result.matched.map((r)=> (
                     <li key={r.id} className="match-item">
