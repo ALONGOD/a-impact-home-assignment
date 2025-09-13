@@ -60,7 +60,7 @@ npm run build
 
 ## 📊 Data Structure
 
-The system processes licensing requirements data stored in `a-impact-backend/src/data/requirements.json`:
+The system processes licensing requirements data stored in `backend/src/data/requirements.json`:
 
 ```json
 {
@@ -99,39 +99,41 @@ The system uses structured prompts to generate reports:
 
 ## 🌐 Environment Variables
 
-No environment variables needed! The frontend automatically connects to the live backend API.
+No environment variables needed!
+The frontend automatically connects to the live backend API (and I didn’t want to share my OpenAI API key 🤫).
 
 ## 📁 Project Structure
 
 ```
-a-impact-home-assignment/
-├── a-impact-backend/           # Backend API
+a-impact-frontend/
+├── backend/                   # Backend API
 │   ├── src/
 │   │   ├── data/              # Licensing requirements data
+│   │   │   └── requirements.json
 │   │   ├── routes/            # API route handlers
+│   │   │   ├── report.js
+│   │   │   └── requirements.js
 │   │   └── index.js           # Main server file
 │   ├── package.json
-│   └── README.md
-├── a-impact-frontend/          # React frontend
-│   ├── src/
-│   │   ├── components/        # React components
-│   │   ├── App.jsx           # Main app component
-│   │   └── main.jsx          # Entry point
-│   ├── package.json
-│   └── vite.config.js        # Vite configuration
+│   └── package-lock.json
+├── public/                    # Static assets
+│   ├── favicon.svg
+│   └── vite.svg
+├── src/                       # React frontend source
+│   ├── assets/                # Frontend assets
+│   │   └── react.svg
+│   ├── App.css                # Main app styles
+│   ├── App.jsx                # Main app component
+│   ├── index.css              # Global styles
+│   └── main.jsx               # Entry point
+├── node_modules/              # Dependencies
+├── eslint.config.js           # ESLint configuration
+├── index.html                 # HTML template
+├── package.json               # Frontend dependencies
+├── package-lock.json          # Lock file
+├── vite.config.js             # Vite configuration
 └── README.md                  # This file
 ```
-
-## 🧪 Testing the System
-
-1. **Start both services** (backend and frontend)
-2. **Open the application** in your browser
-3. **Fill out the questionnaire** with sample data:
-   - Business size: 50 sqm
-   - Seating capacity: 20 people
-   - Special characteristics: Gas usage, Meat serving
-4. **Generate a report** and verify AI-generated content
-5. **Test different combinations** to see how the system adapts
 
 ## 🚀 Deployment
 
