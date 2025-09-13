@@ -41,6 +41,12 @@ The app connects to the backend API for:
 - Requirements data (`/api/requirements`)
 - AI report generation (`/api/report`)
 
+### Environment Variables
+
+- `VITE_API_URL`: Backend API URL (default: `https://a-impact-backend.vercel.app`)
+  - In development: Uses Vite proxy to `/api`
+  - In production: Uses full URL from environment variable
+
 ## Hebrew Support
 
 - RTL (Right-to-Left) text direction

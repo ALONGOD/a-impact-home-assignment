@@ -35,7 +35,11 @@ function App() {
     setError('')
     setResult(null)
     try {
-      const resp = await fetch('/api/report', {
+      // Use environment variable for API URL, fallback to backend URL
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://a-impact-backend.vercel.app'
+      const url = `${apiUrl}/api/report`
+      
+      const resp = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ business })
