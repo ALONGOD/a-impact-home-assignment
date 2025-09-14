@@ -159,7 +159,7 @@ Both services are live and fully functional with automatic deployments from the 
 ### Challenges Encountered & Solutions
 
 1. **OpenAI API Quota Issues**
-   - **Challenge**: Initially encountered 429 quota errors despite creating a fresh API key for this project
+   - **Challenge**: Initially encountered quota errors despite creating a fresh API key for this project
    - **Solution**: Used AI-assisted debugging with Cursor AI prompt "what problems are most likely to happen with this api" to identify card verification as the likely issue, added error logging, and after properly verifying the payment card on OpenAI account, the API immediately started working perfectly
 
 2. **Hebrew Text Processing**
